@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Readers Connect</title>
+    <link rel="stylesheet" href="/Home_page.css">
+    <style>
+        .container { max-width: 800px; margin: 50px auto; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #333; margin-bottom: 20px; }
+        .post { padding: 15px; border-bottom: 1px solid #ddd; }
+        .post h3 { color: #333; }
+        .post p { color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Readers Connect Blog</h2>
+        <% posts.forEach(post => { %>
+            <div class="post">
+                <h3><%= post.title %></h3>
+                <p><%= post.content.substring(0, 200) %>...</p>
+                <p><em>By <%= post.full_name %> on <%= post.created_at.toLocaleDateString() %></em></p>
+            </div>
+        <% }) %>
+        <p><a href="<%= user ? '/home' : '/' %>">Back to <%= user ? 'Home' : 'Landing' %></a></p>
+    </div>
+</body>
+</html>

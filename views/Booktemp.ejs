@@ -1,0 +1,377 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= book.title %> - Readers Connect</title>
+    <link rel="stylesheet" href="/Home_page.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; line-height: 1.6; background-color: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; display: flex; gap: 20px; animation: fadeInSlideUp 0.8s ease-out forwards; }
+        .homepage-intro { background-color: #e9ecef; padding: 40px 20px; text-align: center; margin-bottom: 20px; animation: fadeIn 0.8s ease-out 0.5s forwards; }
+        .homepage-intro h1 { font-size: 28px; color: #333; margin-bottom: 20px; }
+        .homepage-intro p { font-size: 16px; color: #666; max-width: 800px; margin: 0 auto; }
+        .image-section { flex: 1; max-width: 400px; animation: fadeInSlideUp 0.8s ease-out 0.7s forwards; }
+        .slider-image { height: 350px; width: 350px; max-width: 100%; object-fit: contain; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: opacity 0.3s ease; }
+        .box_images { display: flex; gap: 10px; justify-content: flex-start; flex-wrap: wrap; }
+        .thumbnail img { height: 80px; width: 80px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); cursor: pointer; transition: transform 0.3s ease, border 0.3s ease; }
+        .thumbnail img.active { transform: scale(1.1); border: 2px solid #ff9f00; }
+        .content-section { flex: 1; padding: 20px; background-color: #f9f9f9; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); animation: fadeInSlideUp 0.8s ease-out 0.9s forwards; }
+        .content-section h1 { font-size: 24px; color: #333; margin-bottom: 10px; }
+        .content-section p { color: #666; line-height: 1.8; margin-bottom: 15px; }
+        .price { font-size: 20px; color: #ff9f00; font-weight: bold; margin-bottom: 15px; }
+        .availability { font-size: 16px; font-weight: bold; margin-bottom: 15px; }
+        .available { color: #28a745; }
+        .not-available { color: #dc3545; }
+        .action-buttons { margin-top: 20px; display: flex; gap: 10px; align-items: center; animation: fadeIn 0.8s ease-out 1.3s forwards; }
+        .action-buttons a { padding: 12px 24px; font-size: 16px; border-radius: 4px; text-decoration: none; color: white; }
+        .action-buttons a:nth-child(1) { background-color: #28a745; }
+        .action-buttons a:nth-child(2) { background-color: #dc3545; }
+        footer { background-color: #343a40; color: white; padding: 20px; text-align: center; margin-top: 20px; animation: fadeIn 0.8s ease-out 1.7s forwards; }
+        .extra-content { margin-top: 20px; }
+        @keyframes fadeInSlideUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Readers Connect</div>
+        <div class="searchbar">
+            <input type="search" placeholder="Search for books..." id="searchInput">
+            <button id="searchButton">Search</button>
+        </div>
+        <ul class="nav-links">
+            <li><a href="/home" id="home">Home</a></li>
+            <li><a href="/donate" id="donate">Donate</a></li>
+            <li><a href="/request" id="request">Request</a></li>
+            <li><a href="/cart" id="community"><i class="fas fa-shopping-cart cart-icon"></i>Cart</a></li>
+        </ul>
+        <div id="profile_home">
+            <img src="https://imgs.search.brave.com/AQs2_N_rSoK0GzU9oSv8wFm6kCZx_IbkHbFqVIbwzkk/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/ZnJlZS1waG90by91/c2VyLXByb2ZpbGUt/aWNvbi1mcm9udC1z/aWRlXzE4NzI5OS0z/OTU5Ni5qcGc_c2Vt/dD1haXNfaHlicmlk" alt="Profile" class="profile-icon">
+            <div class="dropdown-menu">
+                <a href="/profile">👤 View Profile</a>
+                <a href="/my-donations">📚 My Donations</a>
+                <a href="/donate">➕ Donate a Book</a>
+                <a href="/my-requests">📖 Requested Books</a>
+                <a href="/manage-requests">🔄 Manage Book Requests</a>
+                <a href="/logout">🚪 Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="homepage-intro">
+        <h1><%= book.title %></h1>
+        <p>Explore this book and decide if you'd like to donate or request it!</p>
+    </div>
+
+    <div class="container">
+        <div class="image-section">
+            <div class="slider-image-container">
+                <img src="<%= book.image_url %>" alt="<%= book.title %>" class="slider-image">
+            </div>
+            <div class="box_images">
+                <div class="thumbnail"><img src="<%= book.image_url %>" alt="Thumbnail 1" data-large="<%= book.image_url %>" class="active"></div>
+                <div class="thumbnail"><img src="https://imgs.search.brave.com/6rWCwZtQRdMPWl1Y39ZKTJdhgn5IMtVcEfoUMzHi7AE/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9jZG4x/MS5iaWdjb21tZXJj/ZS5jb20vcy0zdXpy/NG02ajdsL2ltYWdl/cy9zdGVuY2lsLzUw/MHg2NTkvcHJvZHVj/dHMvMzYyMC8xMjA0/My9VU1BNLTh0aF9D/b3Zlcl9NSl8wNzk0/ODQwMDAwX0ZMVF9f/NDk5NDguMTczODc3/NDkxNi5qcGc_Yz0y" data-large="https://imgs.search.brave.com/6rWCwZtQRdMPWl1Y39ZKTJdhgn5IMtVcEfoUMzHi7AE/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9jZG4x/MS5iaWdjb21tZXJj/ZS5jb20vcy0zdXpy/NG02ajdsL2ltYWdl/cy9zdGVuY2lsLzUw/MHg2NTkvcHJvZHVj/dHMvMzYyMC8xMjA0/My9VU1BNLTh0aF9D/b3Zlcl9NSl8wNzk0/ODQwMDAwX0ZMVF9f/NDk5NDguMTczODc3/NDkxNi5qcGc_Yz0y"></div>
+            </div>
+        </div>
+        <div class="content-section">
+            <h1><%= book.title %></h1>
+            <p>Discover <%= book.title %> by <%= book.author %>—a must-read in the <%= book.category %> genre.</p>
+            <div class="price">₹499</div>
+            <p><strong>Author:</strong> <%= book.author %></p>
+            <p><strong>Category:</strong> <%= book.category %></p>
+            <div class="availability <%= book.available_quantity > 0 ? 'available' : 'not-available' %>">
+                <%= book.available_quantity > 0 ? 'Available' : 'Not Available' %> (<%= book.available_quantity %> left)
+            </div>
+            <div class="action-buttons">
+                <a href="/donate/<%= book.id %>">DONATE THIS BOOK</a>
+                <a href="/request/<%= book.id %>">REQUEST THIS BOOK</a>
+            </div>
+            <div class="extra-content">
+                <h3>About the Author</h3>
+                <p><%= book.author %> is a renowned author known for insightful works that blend practical advice with engaging storytelling.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <h3>Readers Connect</h3>
+            <p>Contact us: readersconnect@example.com | Phone: +1-800-123-4567</p>
+            <p>Address: 123 Book Street, Reading City, RC 45678</p>
+            <div class="social-links">
+                <a href="#">Facebook</a>
+                <a href="#">Twitter</a>
+                <a href="#">Instagram</a>
+            </div>
+            <p>© 2025 Readers Connect. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const thumbnails = document.querySelectorAll('.thumbnail img');
+            const mainImage = document.querySelector('.slider-image');
+            thumbnails.forEach(thumbnail => {
+                thumbnail.addEventListener('click', function() {
+                    thumbnails.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    mainImage.style.opacity = 0;
+                    setTimeout(() => {
+                        mainImage.src = this.getAttribute('data-large');
+                        mainImage.style.opacity = 1;
+                    }, 300);
+                });
+            });
+        });
+    </script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= book.title %> - Readers Connect</title>
+    <link rel="stylesheet" href="/Home_page.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            line-height: 1.6; 
+            background-color: #D1E3FF; /* Match main page background */
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+        }
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 20px; 
+            display: flex; 
+            gap: 20px; 
+            animation: fadeInSlideUp 0.8s ease-out forwards; 
+            flex: 1; 
+        }
+        .homepage-intro { 
+            background-color: #e9ecef; 
+            padding: 20px; 
+            text-align: center; 
+            margin-bottom: 10px; 
+            margin-top: 10px; 
+            animation: fadeIn 0.8s ease-out 0.5s forwards; 
+        }
+        .homepage-intro h1 { 
+            font-size: 28px; 
+            color: #333; 
+            margin-bottom: 10px; 
+        }
+        .homepage-intro p { 
+            font-size: 16px; 
+            color: #666; 
+            max-width: 800px; 
+            margin: 0 auto; 
+        }
+        .image-section { 
+            flex: 1; 
+            max-width: 450px; /* Increased to accommodate larger image */
+            animation: fadeInSlideUp 0.8s ease-out 0.7s forwards; 
+        }
+        .slider-image { 
+            height: 350px; /* Increased size for better proportion */
+            width: 350px; /* Increased size for better proportion */
+            max-width: 100%; 
+            object-fit: contain; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+            transition: opacity 0.3s ease; 
+        }
+        .box_images { 
+            display: flex; 
+            gap: 10px; 
+            justify-content: flex-start; 
+            flex-wrap: wrap; 
+        }
+        .thumbnail img { 
+            height: 80px; /* Increased size for better proportion */
+            width: 80px; /* Increased size for better proportion */
+            object-fit: cover; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+            cursor: pointer; 
+            transition: transform 0.3s ease, border 0.3s ease; 
+        }
+        .thumbnail img.active { 
+            transform: scale(1.1); 
+            border: 2px solid #ff9f00; 
+        }
+        .content-section { 
+            flex: 1; 
+            padding: 10px 20px; 
+            background-color: #f9f9f9; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+            animation: fadeInSlideUp 0.8s ease-out 0.9s forwards; 
+        }
+        .content-section h1 { 
+            font-size: 24px; 
+            color: #333; 
+            margin-bottom: 0; 
+        }
+        .content-section p { 
+            color: #666; 
+            line-height: 1.8; 
+            margin-bottom: 10px; 
+        }
+        .availability { 
+            font-size: 16px; 
+            font-weight: bold; 
+            margin-bottom: 10px; 
+        }
+        .available { 
+            color: #28a745; 
+        }
+        .not-available { 
+            color: #dc3545; 
+        }
+        .action-buttons { 
+            margin-top: 10px; 
+            display: flex; 
+            gap: 10px; 
+            justify-content: center; 
+            animation: fadeIn 0.8s ease-out 1.3s forwards; 
+        }
+        .action-buttons a { 
+            padding: 10px 20px; 
+            font-size: 16px; 
+            border-radius: 4px; 
+            text-decoration: none; 
+            color: white; 
+        }
+        .action-buttons a:nth-child(1) { 
+            background-color: #28a745; 
+        }
+        .action-buttons a:nth-child(2) { 
+            background-color: #dc3545; 
+        }
+        .extra-content { 
+            margin-top: 10px; 
+        }
+        .extra-content h3 {
+            margin-bottom: 5px;
+        }
+        .extra-content p {
+            margin-bottom: 0;
+        }
+        .site-footer {
+            background: #1e3a5f;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+            margin-top: auto;
+        }
+        .footer-bottom p {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        @keyframes fadeInSlideUp { 
+            0% { opacity: 0; transform: translateY(20px); } 
+            100% { opacity: 1; transform: translateY(0); } 
+        }
+        @keyframes fadeIn { 
+            0% { opacity: 0; transform: translateY(20px); } 
+            100% { opacity: 1; transform: translateY(0); } 
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Readers Connect</div>
+        <div class="searchbar">
+            <form action="/home/search" method="POST">
+                <input type="search" name="searchQuery" placeholder="Search for books..." id="searchInput">
+                <button type="submit" id="searchButton">Search</button>
+            </form>
+        </div>
+        <ul class="nav-links">
+            <li><a href="/home" id="home">Home</a></li>
+            <li><a href="#about-us" class="scroll-link">About Us</a></li>
+            <li><a href="#contact-us" class="scroll-link">Contact Us</a></li>
+            <li><a href="/cart" id="community"><i class="fas fa-shopping-cart cart-icon"></i>Cart</a></li>
+        </ul>
+        <div id="profile_home">
+            <img src="https://imgs.search.brave.com/AQs2_N_rSoK0GzU9oSv8wFm6kCZx_IbkHbFqVIbwzkk/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/ZnJlZS1waG90by91/c2VyLXByb2ZpbGUt/aWNvbi1mcm9udC1z/aWRlXzE4NzI5OS0z/OTU5Ni5qcGc_c2Vt/dD1haXNfaHlicmlk" alt="Profile" class="profile-icon">
+            <div class="dropdown-menu">
+                <a href="/profile">👤 View Profile</a>
+                <a href="/my-donations">📚 My Donations</a>
+                <a href="/donate">➕ Donate a Book</a>
+                <a href="/my-requests">📖 Requested Books</a>
+                <a href="/manage-requests">🔄 Manage Book Requests</a>
+                <a href="/logout">🚪 Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="homepage-intro">
+        <h1><%= book.title %></h1>
+        <p>Explore this book and decide if you'd like to donate or request it!</p>
+    </div>
+
+    <div class="container">
+        <div class="image-section">
+            <div class="slider-image-container">
+                <img src="<%= book.image_url %>" alt="<%= book.title %>" class="slider-image">
+            </div>
+            <div class="box_images">
+                <div class="thumbnail"><img src="<%= book.image_url %>" alt="Thumbnail 1" data-large="<%= book.image_url %>" class="active"></div>
+                <div class="thumbnail"><img src="https://imgs.search.brave.com/6rWCwZtQRdMPWl1Y39ZKTJdhgn5IMtVcEfoUMzHi7AE/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9jZG4x/MS5iaWdjb21tZXJj/ZS5jb20vcy0zdXpy/NG02ajdsL2ltYWdl/cy9zdGVuY2lsLzUw/MHg2NTkvcHJvZHVj/dHMvMzYyMC8xMjA0/My9VU1BNLTh0aF9D/b3Zlcl9NSl8wNzk0/ODQwMDAwX0ZMVF9f/NDk5NDguMTczODc3/NDkxNi5qcGc_Yz0y" data-large="https://imgs.search.brave.com/6rWCwZtQRdMPWl1Y39ZKTJdhgn5IMtVcEfoUMzHi7AE/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9jZG4x/MS5iaWdjb21tZXJj/ZS5jb20vcy0zdXpy/NG02ajdsL2ltYWdl/cy9zdGVuY2lsLzUw/MHg2NTkvcHJvZHVj/dHMvMzYyMC8xMjA0/My9VU1BNLTh0aF9D/b3Zlcl9NSl8wNzk0/ODQwMDAwX0ZMVF9f/NDk5NDguMTczODc3/NDkxNi5qcGc_Yz0y"></div>
+            </div>
+        </div>
+        <div class="content-section">
+            <h1><%= book.title %></h1>
+            <p>Discover <%= book.title %> by <%= book.author %>—a must-read in the <%= book.category %> genre.</p>
+            <p><strong>Author:</strong> <%= book.author %></p>
+            <p><strong>Category:</strong> <%= book.category %></p>
+            <div class="availability <%= book.available_quantity > 0 ? 'available' : 'not-available' %>">
+                <%= book.available_quantity > 0 ? 'Available' : 'Not Available' %> (<%= book.available_quantity %> left)
+            </div>
+            <div class="action-buttons">
+                <a href="/donate/<%= book.id %>">DONATE THIS BOOK</a>
+                <a href="/request/<%= book.id %>">REQUEST THIS BOOK</a>
+            </div>
+            <div class="extra-content">
+                <h3>About the Author</h3>
+                <p><%= book.author %> is a renowned author known for insightful works that blend practical advice with engaging storytelling.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-bottom">
+            <p>© 2025 Readers Connect. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const thumbnails = document.querySelectorAll('.thumbnail img');
+            const mainImage = document.querySelector('.slider-image');
+            thumbnails.forEach(thumbnail => {
+                thumbnail.addEventListener('click', function() {
+                    thumbnails.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    mainImage.style.opacity = 0;
+                    setTimeout(() => {
+                        mainImage.src = this.getAttribute('data-large');
+                        mainImage.style.opacity = 1;
+                    }, 300);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

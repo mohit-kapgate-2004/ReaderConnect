@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Requests - Readers Connect</title>
+    <link rel="stylesheet" href="/Home_page.css">
+    <style>
+        .container { max-width: 1000px; margin: 50px auto; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #333; margin-bottom: 20px; }
+        .request { padding: 15px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; }
+        .request button { padding: 5px 10px; border: none; border-radius: 5px; cursor: pointer; }
+        .approve { background: #28a745; color: white; }
+        .reject { background: #dc3545; color: white; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Manage Book Requests</h2>
+        <% if (requests.length === 0) { %>
+            <p>No requests to manage.</p>
+        <% } else { %>
+            <% requests.forEach(request => { %>
+                <div class="request">
+                    <div>
+                        <p><strong>User:</strong> <%= request.full_name %></p>
+                        <p><strong>Book:</strong> <%= request.book_id ? request.title : 'New Book Request' %></p>
+                        <p><strong>Reason:</strong> <%= request.reason %></p>
+                        <p><strong>Status:</strong> <%= request.status %></p>
+                    </div>
+                    <% if (request.status === 'Pending') { %>
+                        <div>
+                            <form action="/manage-requests/<%= request.id %>/approve" method="POST" style="display:inline;">
+                                <button class="approve" type="submit">Approve</button>
+                            </form>
+                            <form action="/manage-requests/<%= request.id %>/reject" method="POST" style="display:inline;">
+                                <button class="reject" type="submit">Reject</button>
+                            </form>
+                        </div>
+                    <% } %>
+                </div>
+            <% }) %>
+        <% } %>
+        <p><a href="/home">Back to Home</a></p>
+    </div>
+</body>
+</html>

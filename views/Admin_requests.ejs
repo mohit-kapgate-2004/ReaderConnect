@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Pending Requests</title>
+    <link rel="stylesheet" href="/Home_page.css">
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #1e3a5f;
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background: #1e3a5f;
+            color: white;
+        }
+        tr:hover {
+            background: #f5f5f5;
+        }
+        .back-link {
+            text-align: center;
+        }
+        .back-link a {
+            color: #1e3a5f;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Pending Book Requests</h2>
+        <% if (requests.length === 0) { %>
+            <p style="text-align: center; color: #666;">No pending requests at the moment.</p>
+        <% } else { %>
+            <table>
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Category</th>
+                        <th>Quantity</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% requests.forEach(request => { %>
+                        <tr>
+                            <td><%= request.user_name %></td>
+                            <td><%= request.title %></td>
+                            <td><%= request.author %></td>
+                            <td><%= request.category %></td>
+                            <td><%= request.quantity %></td>
+                            <td><%= request.status %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } %>
+        <p class="back-link"><a href="/home">Back to Home</a></p>
+    </div>
+</body>
+</html>

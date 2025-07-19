@@ -1,0 +1,1156 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Readers Connect - Home</title>
+    <link rel="stylesheet" href="/Home_page.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Home_page.css */
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #D1E3FF;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* Navigation Bar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1e3a5f;
+    padding: 10px 20px;
+    color: white;
+    height: 60px;
+}
+
+.navbar .logo {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.navbar .searchbar {
+    display: flex;
+    align-items: center;
+}
+
+.navbar .searchbar input {
+    padding: 5px;
+    width: 20vw;
+    height: 40px;
+    border: none;
+    border-radius: 3px;
+    margin-right: 10px;
+}
+
+.navbar .searchbar button {
+    padding: 5px 10px;
+    border: 0.5px solid black;
+    height: 40px;
+    border-radius: 3px;
+    background-color: #0458e1;
+    color: white;
+    cursor: pointer;
+}
+
+.navbar .nav-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar .nav-links li {
+    margin-left: 20px;
+}
+
+.navbar .nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.navbar .nav-links a:hover {
+    text-decoration: underline;
+}
+
+.profile-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Profile Dropdown */
+#profile_home {
+    margin-right: 30px;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.profile-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-left: 25px;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    background: white;
+    min-width: 180px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    overflow: hidden;
+    z-index: 100;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+    transition: background 0.3s;
+}
+
+.dropdown-menu a:hover {
+    background: #f0f0f0;
+}
+
+#profile_home:hover .dropdown-menu {
+    display: block;
+}
+
+/* Main Content */
+.homepage-intro {
+    margin-top: 80px;
+    padding: 20px;
+    text-align: center;
+}
+
+.homepage-intro p {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+/* Buttons in homepage-intro */
+.btns {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.reqdonbtns {
+    background-color: #1e3a5f;
+    color: white;
+    width: 100px;
+    height: 45px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.reqdonbtns:hover {
+    background-color: #1279da;
+}
+
+.book-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.book {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    width: 200px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.book:hover {
+    transform: translateY(-5px);
+}
+.book button {
+    padding: 8px 16px;
+    background: #1e3a5f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.3s ease;
+}
+
+.book button:hover {
+    background: #87b5e0;
+}
+.book img {
+    width: 100%;
+    height: 150px;
+    object-fit: contain;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.book-title {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.book p {
+    margin: 5px 0;
+    color: #666;
+}
+
+/* Availability Styling */
+.availability.not-available {
+    color: red;
+    font-weight: bold;
+}
+
+.extra-content {
+    padding: 20px;
+    text-align: center;
+}
+
+.extra-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.extra-content p {
+    font-size: 1.1rem;
+    color: #555;
+}
+
+
+/* About Us Section */
+.about-section {
+    padding: 40px 20px;
+    text-align: left;
+}
+
+.about-section h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.about-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.about-text {
+    flex: 1;
+}
+
+.about-text p {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.read-more-btn {
+    background-color: #1e3a5f;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.read-more-btn:hover {
+    background-color: #87b5e0;
+}
+
+.about-image {
+    flex: 1;
+}
+
+.about-image img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Testimonials Slider */
+.testimonials-section {
+    padding: 40px 20px;
+    background: #f9f9f9;
+}
+
+.testimonials-section h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.slider-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+}
+
+.slide {
+    min-width: 100%;
+    flex-shrink: 0;
+}
+
+.testimonial {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.testimonial img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.testimonial h4 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.rating {
+    color: #f1c40f;
+    margin-bottom: 10px;
+}
+
+.testimonial p {
+    font-size: 1rem;
+    color: #555;
+}
+
+.slider-nav {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    padding: 0 10px;
+}
+
+.slider-nav button {
+    background: #1e3a5f;
+    border: none;
+    color: white;
+    font-size: 18px;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.slider-nav button:hover {
+    background: #87b5e0;
+}
+
+/* Contact Us Section */
+.contact-section {
+    padding: 40px 20px;
+    background: #1e3a5f;
+    color: white;
+}
+
+.contact-section h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.contact-form {
+    max-width: 500px;
+    margin: 0 auto 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.contact-form textarea {
+    height: 150px;
+    resize: none;
+}
+
+.contact-form button {
+    background: #0458e1;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.contact-form button:hover {
+    background: #87b5e0;
+}
+
+.get-in-touch {
+    text-align: center;
+}
+
+.get-in-touch h3 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.contact-info {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 20px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.info-item i {
+    font-size: 1.5rem;
+}
+
+.info-item p {
+    font-size: 1rem;
+}
+
+.get-in-touch h4 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    font-size: 1.5rem;
+}
+
+.social-icons a {
+    color: white;
+    transition: color 0.3s;
+}
+
+.social-icons a:hover {
+    color: #87b5e0;
+}
+
+/* Footer */
+.site-footer {
+    background: #1e3a5f;
+    color: white;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+.footer-bottom p {
+    font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        height: auto;
+        padding: 10px;
+    }
+
+    .navbar .searchbar {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .navbar .searchbar input {
+        width: 100%;
+    }
+
+    .navbar .nav-links {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navbar .nav-links li {
+        margin: 5px 0;
+    }
+
+    .about-content {
+        flex-direction: column;
+    }
+
+    .contact-info {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+.title {
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background-color: #1e3a5f; /* Background color for the component */
+    padding: 5px 10px; /* Added padding for better appearance */
+    border-radius: 5px; /* Optional: slight rounding for the background */
+  }
+
+  .text {
+    color: #e6f0fa; /* Light pale blue that contrasts with #1e3a5f */
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    font-weight: bold;
+  }
+
+  .switch {
+    width: 40px;
+    height: 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  }
+
+  .icon {
+    width: 18px;
+    height: 18px;
+    background-color: #1e3a5f;
+     color: #1e3a5f; 
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2px;
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    animation: slide 1s infinite alternate;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+  }
+
+  @keyframes slide {
+    0% { left: 1px; }
+    100% { left: 21px; }
+  }
+
+  .title:hover .text {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    transition: text-shadow 0.3s ease;
+  }
+
+  .wrapper {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 25px;
+        }
+
+        /* Card Styling for Each Section */
+        .card {
+            flex: 1;
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Headings */
+        .card-title {
+            font-size: 26px;
+            color: #2a2a2a;
+            margin-bottom: 12px;
+        }
+
+        /* Quote Styling */
+        .highlight-quote {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 18px;
+        }
+
+        /* List Styling */
+        .info-list {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+
+        .info-list li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 12px;
+            color: #333;
+            font-size: 17px;
+        }
+
+        .info-list li::before {
+            content: "➔";
+            position: absolute;
+            left: 0;
+            color: #1a73e8;
+        }
+
+        /* Subheading */
+        .subheading {
+            font-size: 22px;
+            color: #1a73e8;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        /* Emoji in Heading */
+        .lightbulb {
+            font-size: 22px;
+        }
+
+        /* Image Styling */
+        .card-image {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 0 auto;
+            border-radius: 6px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .wrapper {
+                flex-direction: column;
+            }
+
+            .card {
+                margin-bottom: 25px;
+            }
+        }
+        .notifications {
+    margin: 20px 0;
+    padding: 15px;
+    background: #e0f7fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1e3a5f;
+    padding: 10px 20px;
+    color: white;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+.navbar .nav-links a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: 500;
+}
+.navbar .nav-links a:hover {
+    text-decoration: underline;
+}
+.notification-icon {
+    position: relative;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+.notification-icon .badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 0.8rem;
+}
+.notification-dropdown {
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: 20px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    min-width: 300px;
+    max-height: 400px;
+    overflow-y: auto;
+    z-index: 1000;
+}
+.notification-dropdown.active {
+    display: block;
+}
+.notification-item {
+    padding: 10px 15px;
+    border-bottom: 1px solid #eee;
+}
+.notification-item.unread {
+    background: #f0f0f0;
+    font-weight: bold;
+}
+.notification-item .address {
+    color: #666;
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+.notification-item time {
+    display: block;
+    color: #999;
+    font-size: 0.7rem;
+}
+
+.filter-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.filter-toggle {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.filter-toggle button {
+    background: #1e3a5f;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.filter-toggle button:hover {
+    background: #2a4b7c;
+}
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.filters.active {
+    max-height: 500px; /* Adjust based on content */
+}
+
+.filter-group {
+    flex: 1;
+    min-width: 200px;
+}
+
+.filter-group label {
+    display: block;
+    font-weight: 500;
+    color: #1e3a5f;
+    margin-bottom: 5px;
+}
+
+.filter-group input,
+.filter-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.quantity-range .range-inputs {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.quantity-range input {
+    flex: 1;
+}
+
+.filter-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.filter-actions button {
+    background: #1e3a5f;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.filter-actions button:hover {
+    background: #2a4b7c;
+}
+
+.clear-filters {
+    color: #dc3545;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.clear-filters:hover {
+    text-decoration: underline;
+}
+
+.sort-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.sort-container label {
+    font-weight: 500;
+    color: #1e3a5f;
+}
+
+.sort-container select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <!-- <div class="logo">Readers Connect</div> -->
+        <div class="title">
+            <span class="text">READER</span>
+            <div class="switch">
+              <div class="icon">*</div>
+            </div>
+            <span class="text">CONNECT</span>
+          </div>
+        <div class="searchbar">
+            <form action="/home/search" method="POST" id="searchForm">
+                <input type="search" name="searchQuery" placeholder="Search for books..." id="searchInput" value="<%= searchQuery || '' %>">
+                <button type="submit" id="searchButton">Search</button>
+            </form>
+        </div>
+        <ul class="nav-links">
+            <li><a href="/home" id="home">Home</a></li>
+            <li><a href="#about-us" class="scroll-link">About Us</a></li>
+             <li><a href="#contact-us" class="scroll-link">Contact Us</a></li>
+            <li><a href="/cart" id="community"><i class="fas fa-shopping-cart cart-icon"></i>Cart</a></li> 
+            <% if (user && user.role === 'admin') { %>
+                <li><a href="/admin">Admin Dashboard</a></li>
+            <% } %> 
+             
+        </ul>
+        <div class="notification-icon" id="notification-bell">
+            <i class="fas fa-bell"></i>
+            <span class="badge" id="notification-count">0</span>
+            <div class="notification-dropdown" id="notification-dropdown"></div>
+        </div>
+        <div id="profile_home">
+            <img src="https://imgs.search.brave.com/AQs2_N_rSoK0GzU9oSv8wFm6kCZx_IbkHbFqVIbwzkk/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/ZnJlZS1waG90by91/c2VyLXByb2ZpbGUt/aWNvbi1mcm9udC1z/aWRlXzE4NzI5OS0z/OTU5Ni5qcGc_c2Vt/dD1haXNfaHlicmlk" alt="Profile" class="profile-icon">
+            <div class="dropdown-menu">
+                <a href="/profile">👤 View Profile</a>
+                <a href="/my-donations">📚 My Donations</a>
+                <a href="/donate">➕ Donate a Book</a>
+                <a href="/my-requests">📖 Requested Books</a>
+                <!-- <a href="/manage-requests">🔄 Manage Book Requests</a> -->
+                <a href="/logout">🚪 Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="homepage-intro">
+        
+            <div class="btns">
+                <a href="/donate"><button class="reqdonbtns">Donate</button></a>
+                <a href="/request"><button class="reqdonbtns">Request</button></a>
+            </div>
+       
+        <p>Explore our collection, donate your books, or request something new to read. Join our growing community of book lovers today!</p>
+    </div>
+
+   
+   
+    <!-- Existing "Our Book Collection" section -->
+<h2>Our Book Collection</h2>
+<div class="book-container">
+    <% books.forEach(book => { %>
+        <div class="book" onclick="window.location.href='/templet/<%= book.id %>'">
+            <img src="<%= book.image_url %>" alt="<%= book.title %>">
+            <div class="book-title"><%= book.title %></div>
+            <p class="availability <%= book.available_quantity === 0 ? 'not-available' : '' %>">
+                <%= book.available_quantity > 0 ? `Available: ${book.available_quantity}` : 'Not Available' %>
+            </p>
+            <form action="/cart/add/<%= book.id %>" method="POST" style="display:inline;">
+                <button type="submit">Add to Cart</button>
+            </form>
+        </div>
+    <% }) %>
+</div>
+
+<!-- Add "Book Requests (Not Available)" section -->
+<h2>Book Requests (Not Available)</h2>
+<div class="book-container">
+    <% if (!otherRequests || otherRequests.length === 0) { %>
+        <p style="text-align: center; color: #666;">No unavailable books have been requested by other users.</p>
+    <% } else { %>
+        <% otherRequests.forEach(request => { %>
+            <div class="book">
+                <!-- <img src="https://via.placeholder.com/150" alt="<%= request.title %>"> -->
+                <div class="book-title"><%= request.title %></div>
+                <p><strong>Author:</strong> <%= request.author %></p>
+                <p><strong>Category:</strong> <%= request.category %></p>
+                <p><strong>Requested Quantity:</strong> <%= request.quantity %></p>
+                <p class="availability not-available">Not Available</p>
+                <form action="/donate/<%= request.id %>" method="GET" style="display:inline;">
+                    <button type="submit">Donate This Book</button>
+                </form>
+            </div>
+        <% }) %>
+    <% } %>
+</div>
+
+
+
+<div class="wrapper">
+    <!-- Section 1: Why Donate? -->
+    <div class="card">
+        <h2 class="card-title">Why Donate?</h2>
+        <p class="highlight-quote">"Knowledge increases by sharing, but not saving"</p>
+        <ul class="info-list">
+            <li>Books are uniquely portable magic that carries your attached feelings forward.</li>
+            <li>Your books can help someone in the same way they did for you.</li>
+            <li>We are committed to carrying your emotions with your books and making them grow older!</li>
+            <li>Let's become a cause for change & make a difference.</li>
+        </ul>
+        <h3 class="subheading">Let's Educate Together & Rise Together!</h3>
+        <img src="https://www.mypustak.com/_next/static/media/donate_box.6c15805d.png" alt="Donation Box" class="card-image">
+    </div>
+
+    <!-- Section 2: Did You Know? -->
+    <div class="card">
+        <h2 class="card-title">Did You Know? <span class="lightbulb">💡</span></h2>
+        <ul class="info-list">
+            <li>By donating (30 books), you will help to reduce 85kg of carbon-footprint trees.</li>
+            <li>A ton of recycled paper saves 17 trees.</li>
+            <li>In 1993, U.S. paper recovery saved more than 90,000,000 cubic yards of landfill space. It’s our turn in India.</li>
+            <li>Some people cannot access books. They can get books at FREE OF COST anywhere across India.</li>
+        </ul>
+        <img src="https://www.mypustak.com/_next/static/media/donate_search_book.f2ab72bb.png" alt="Illustration of People with Books" class="card-image">
+    </div>
+</div>
+
+    
+    <!-- About Us Section -->
+    <section id="about-us" class="about-section">
+        <h2>ABOUT US</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>The Readers Connect platform is dedicated to making literature accessible to everyone. We connect book lovers with those in need, fostering a community where knowledge and stories are shared freely. Whether you're donating unused books or requesting rare finds, we're here to bridge the gap.</p>
+                <button class="read-more-btn">READ MORE</button>
+            </div>
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="About Us">
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Slider -->
+    <section class="testimonials-section">
+        <h2>WHAT OUR READERS SAY</h2>
+        <div class="slider-container">
+            <div class="slides">
+                <div class="slide">
+                    <div class="testimonial">
+                        <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Reader 1">
+                        <h4>Kunal Lanje</h4>
+                        <div class="rating">★★★★★</div>
+                        <p>"Readers Connect has been a game-changer for me. I’ve discovered so many new books and connected with fellow readers who share my passion."</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="testimonial">
+                        <img src="https://randomuser.me/api/portraits/men/2.jpg" alt="Reader 2">
+                        <h4>Om Patale</h4>
+                        <div class="rating">★★★★☆</div>
+                        <p>"This platform makes it so easy to donate books and request ones I’ve been searching for. A true community for book lovers!"</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-nav">
+                <button class="prev">❮</button>
+                <button class="next">❯</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Us Section -->
+    <h2>CONTACT US</h2>
+    <form action="/contact" method="POST" class="contact-form">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="tel" name="phone" placeholder="Phone Number" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <textarea name="message" placeholder="Message" required></textarea>
+        <button type="submit">SEND</button>
+    </form>
+    <section id="contact-us" class="contact-section">
+        
+        <div class="get-in-touch">
+            <h3>GET IN TOUCH</h3>
+            <div class="contact-info">
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p>Priyadarshani College of Enginnering , NAGPUR</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-phone"></i>
+                    <p>+91 1234567890</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <p>helloreadersconnect@gmail.com</p>
+                </div>
+            </div>
+            <h4>FOLLOW US</h4>
+            <div class="social-icons">
+                <a href="https://facebook.com"><i class="fab fa-facebook"></i></a>
+                <a href="https://twitter.com"><i class="fab fa-twitter"></i></a>
+                <a href="https://instagram.com"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        <footer class="site-footer">
+            <div class="footer-bottom">
+                <p>© 2025 Readers Connect. All Rights Reserved.</p>
+            </div>
+        </footer>
+    </section>
+
+    <!-- Footer -->
+    
+
+    <script>
+        // Smooth scrolling for nav links
+        document.querySelectorAll('.scroll-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const target = document.getElementById(targetId);
+                if (target) {
+                    target.scrollIntoView({ behavior:"instant" });
+                }
+            });
+        });
+
+        // Slider functionality
+        const slides = document.querySelector('.slides');
+        const slideElements = document.querySelectorAll('.slide');
+        const prevBtn = document.querySelector('.prev');
+        const nextBtn = document.querySelector('.next');
+        let currentIndex = 0;
+
+        function showSlide(index) {
+            if (index >= slideElements.length) currentIndex = index%slideElements.length;
+            else if (index < 0) currentIndex = slideElements.length - 1;
+            else currentIndex = index;
+            slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+
+        prevBtn.addEventListener('click', () => showSlide(currentIndex - 1));
+        nextBtn.addEventListener('click', () => showSlide(currentIndex + 1));
+        setInterval(() => showSlide(currentIndex + 1), 4000); // Auto-slide every 5 seconds
+
+        function toggleFilters() {
+        const filterForm = document.querySelector('.filters');
+        const filterIcon = document.querySelector('#filter-icon');
+        filterForm.classList.toggle('active');
+        filterIcon.textContent = filterForm.classList.contains('active') ? '▲' : '▼';
+        }
+
+        const bell = document.getElementById('notification-bell');
+    const dropdown = document.getElementById('notification-dropdown');
+    const count = document.getElementById('notification-count');
+
+    function fetchNotifications() {
+        fetch('/notifications')
+            .then(response => response.json())
+            .then(notifications => {
+                count.textContent = notifications.filter(n => n.status === 'unread').length;
+                dropdown.innerHTML = '';
+                notifications.forEach(notification => {
+                    const item = document.createElement('div');
+                    item.className = `notification-item ${notification.status === 'unread' ? 'unread' : ''}`;
+                    item.innerHTML = `
+                        <p>${notification.message}</p>
+                        ${notification.address ? `<div class="address">${notification.address}</div>` : ''}
+                        <time>${new Date(notification.created_at).toLocaleString()}</time>
+                    `;
+                    dropdown.appendChild(item);
+                });
+            })
+            .catch(error => console.error('Error fetching notifications:', error));
+    }
+
+    bell.addEventListener('click', () => {
+        dropdown.classList.toggle('active');
+        if (dropdown.classList.contains('active')) {
+            fetchNotifications();
+        }
+    });
+
+    // Fetch notifications every 30 seconds
+    setInterval(fetchNotifications, 30000);
+    // Initial fetch
+    fetchNotifications();
+    </script>
+</body>
+</html>

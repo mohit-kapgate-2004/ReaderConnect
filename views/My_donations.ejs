@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Donations - Readers Connect</title>
+    <link rel="stylesheet" href="/Home_page.css">
+    <style>
+        .container { max-width: 800px; margin: 50px auto; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #333; margin-bottom: 20px; }
+        .donation { padding: 15px; border-bottom: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>My Donations</h2>
+        <% if (donations.length === 0) { %>
+            <p>You haven’t donated any books yet.</p>
+        <% } else { %>
+            <% donations.forEach(donation => { %>
+                <div class="donation">
+                    <p><strong>Book:</strong> <%= donation.title %></p>
+                    <p><strong>Quantity:</strong> <%= donation.quantity %></p>
+                    <p><strong>Date:</strong> <%= donation.created_at.toLocaleDateString() %></p>
+                </div>
+            <% }) %>
+        <% } %>
+        <p><a href="/home">Back to Home</a></p>
+    </div>
+</body>
+</html>

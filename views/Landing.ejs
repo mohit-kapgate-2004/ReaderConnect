@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Readers Connect</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Georgia', serif; }
+        body { background: #e8eef4; color: #1e3a5f; line-height: 1.6; overflow-x: hidden; max-height: 100vh;}
+        header { background: #1e3a5f; padding: 1rem 1rem; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); position: fixed; width: 100%; top: 0; z-index: 1000; }
+        nav { display: flex; justify-content:space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
+        #logo1 { color: #fff; font-size: 2rem; text-decoration: none; font-weight: bold; }
+        #logo1:hover { color: #87b5e0; }
+        .L_nav { color: #fff; text-decoration: none; margin: 0 1.5rem; font-size: 1.1rem; position: relative; }
+        .L_nav::after { content: ''; position: absolute; width: 0; height: 2px; background: #87b5e0; bottom: -5px; left: 0; transition: width 0.3s ease; }
+        .L_nav:hover::after { width: 100%; }
+        .L_nav:hover { color: #87b5e0; }
+        #L_sign_in { background: #87b5e0; color: #1e3a5f; border: none; padding: 0.7rem 1.5rem; border-radius: 5px; cursor: pointer; }
+        #L_sign_in:hover { background: #a3c7ea; transform: scale(1.05); }
+        main { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 6rem 2rem 2rem; background: url('https://t4.ftcdn.net/jpg/07/74/81/35/240_F_774813575_kEKynZ6iZvNilvL5CIAK5KeUVkUY6dzR.jpg') no-repeat center/cover; position: relative; }
+        main::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;  z-index: 1; }
+        #para { position: relative; z-index: 2; max-width: 800px; }
+        #L_head1 { font-size: 3rem; color: #1e3a5f; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); }
+        #L_summary { font-size: 1.5rem; color: #87b5e0; margin-bottom: 0.5rem; }
+        #L_summary1 { font-size: 1.2rem; color: #fff; font-style: italic; }
+        .letter { opacity: 0; display: inline-block; animation: fadeIn 0.1s ease forwards; }
+        #btns { margin-top: 0rem; display: flex; gap: 1.5rem; z-index: 2; opacity: 0; animation: fadeInUp 1s ease-out 1s forwards; }
+        .L_btn { background: #1e3a5f; color: #fff; border: 2px solid #87b5e0; padding: 0.8rem 2rem; border-radius: 5px; font-size: 1.1rem; cursor: pointer; }
+        .L_btn:hover { background: #87b5e0; color: #1e3a5f; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); }
+        footer { background: #1e3a5f; color: #fff; padding: 2rem; text-align: center; max-height: 100px; }
+        .extra-content { margin-top: 20px; color: #fff; font-size: 1.1rem; }
+        @keyframes fadeIn { to { opacity: 2; } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @media (max-width: 768px) { nav { flex-direction: column; padding: 1rem; } .L_nav { margin: 0.5rem 0; } #L_head1 { font-size: 2rem; } #L_summary { font-size: 1.2rem; } #btns { flex-direction: column; gap: 1rem; } }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a id="logo1" href="/">Readers Connect</a>
+            <!-- <a id="L_about" class="L_nav" href="#about">About</a>
+            <a id="L_contact" class="L_nav" href="#contact">Contact</a>
+             -->
+            <div id="btns">
+                <button id="L_sign_up" class="L_btn">LOGIN</button>
+                <button id="L_contact_us" class="L_btn">REGISTER</button>
+            </div>
+            <!-- <% if (!user) { %>
+                <button id="L_sign_in" class="L_btn">Sign In</button>
+            <% } else { %>
+                <a href="/logout" class="L_nav">Logout</a>
+            <% } %> -->
+        </nav>
+    </header>
+    <main>
+        <div id="para">
+            <h1 id="L_head1">Welcome to Readers Connect</h1>
+            <p id="L_summary">More than Books: Building Bridges to Knowledge</p>
+            <p id="L_summary1">A platform for readers and those in need, connecting book lovers with access to literature.</p>
+        </div>
+        
+        <div class="extra-content">
+            <p>Join a global community passionate about sharing knowledge and stories. Explore our growing library today!</p>
+        </div>
+    </main>
+    <footer>
+        <p>© 2025 Readers Connect | Spreading the love of reading worldwide</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const elements = [document.getElementById('L_head1'), document.getElementById('L_summary'), document.getElementById('L_summary1')];
+            const totalDuration = 2000;
+            const lines = elements.length;
+            const timePerLine = totalDuration / lines;
+
+            elements.forEach((element, lineIndex) => {
+                const text = element.textContent;
+                element.innerHTML = '';
+                text.split('').forEach((char, charIndex) => {
+                    const span = document.createElement('span');
+                    span.textContent = char === ' ' ? '\u00A0' : char;
+                    span.className = 'letter';
+                    element.appendChild(span);
+                });
+                const letters = element.querySelectorAll('.letter');
+                const delayPerLetter = timePerLine / letters.length;
+                const lineStartDelay = lineIndex * timePerLine;
+                letters.forEach((letter, charIndex) => {
+                    letter.style.animationDelay = `${lineStartDelay + charIndex * delayPerLetter}ms`;
+                });
+            });
+
+            document.getElementById('L_sign_up').addEventListener('click', () => window.location.href = '/login');
+            document.getElementById('L_contact_us').addEventListener('click', () => window.location.href = '/Registration');
+            document.getElementById('L_sign_in').addEventListener('click', () => window.location.href = '/login');
+        });
+    </script>
+</body>
+</html>

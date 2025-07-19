@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Readers Connect</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #D1E3FF;
+            color: #333;
+            height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 100px;
+        }
+        h1 {
+            text-align: center;
+            color: #1e3a5f;
+            margin-bottom: 20px;
+        }
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+        .tab-button {
+            padding: 10px 20px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: #1e3a5f;
+            font-weight: 500;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.3s;
+        }
+        .tab-button.active {
+            border-bottom-color: #1e3a5f;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background: #1e3a5f;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        .actions button {
+            padding: 5px 10px;
+            margin-right: 5px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .edit-btn { background: #1e3a5f; color: white; }
+        .delete-btn { background: #dc3545; color: white; }
+        .approve-btn { background: #28a745; color: white; }
+        .reject-btn { background: #ffc107; color: black; }
+        .edit-btn:hover, .approve-btn:hover { background: #87b5e0; }
+        .delete-btn:hover { background: #c82333; }
+        .reject-btn:hover { background: #e0a800; }
+        .add-form, .edit-form {
+            display: none;
+            margin-top: 20px;
+        }
+        .add-form.active, .edit-form.active {
+            display: block;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .form-group button {
+            background: #1e3a5f;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background: #87b5e0;
+        }
+        .error, .message {
+            text-align: center;
+            margin: 10px 0;
+        }
+        .error { color: #dc3545; }
+        .message { color: #28a745; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+        <% if (error) { %>
+            <p class="error"><%= error %></p>
+        <% } %>
+        <% if (message) { %>
+            <p class="message"><%= message %></p>
+        <% } %>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab('summary')">Summary</button>
+            <button class="tab-button" onclick="openTab('books')">Manage Books</button>
+            <button class="tab-button" onclick="openTab('users')">Manage Users</button>
+            <button class="tab-button" onclick="openTab('requests')">Manage Requests</button>
+            <button class="tab-button" onclick="openTab('donations')">Manage Donations</button>
+            <button class="tab-button" onclick="openTab('cart')">Manage Cart</button>
+        </div>
+
+        <!-- Summary Tab -->
+        <div id="summary" class="tab-content active">
+            <h2>Dashboard Summary</h2>
+            <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px;">
+                <div style="background: #1e3a5f; color: white; padding: 20px; border-radius: 8px; width: 150px;">
+                    <h3>Books</h3>
+                    <p><%= bookCount %></p>
+                </div>
+                <div style="background: #1e3a5f; color: white; padding: 20px; border-radius: 8px; width: 150px;">
+                    <h3>Users</h3>
+                    <p><%= userCount %></p>
+                </div>
+                <div style="background: #1e3a5f; color: white; padding: 20px; border-radius: 8px; width: 150px;">
+                    <h3>Pending Requests</h3>
+                    <p><%= requestCount %></p>
+                </div>
+                <div style="background: #1e3a5f; color: white; padding: 20px; border-radius: 8px; width: 150px;">
+                    <h3>Donations</h3>
+                    <p><%= donationCount %></p>
+                </div>
+                <div style="background: #1e3a5f; color: white; padding: 20px; border-radius: 8px; width: 150px;">
+                    <h3>Cart Items</h3>
+                    <p><%= cartCount %></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Manage Books Tab -->
+        <div id="books" class="tab-content">
+            <h2>Manage Books</h2>
+            <button onclick="toggleForm('add-book-form')" style="background: #1e3a5f; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; margin-bottom: 20px;">Add New Book</button>
+            <div id="add-book-form" class="add-form">
+                <form action="/admin/books/add" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" name="title" id="title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="author">Author</label>
+                        <input type="text" name="author" id="author" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <select name="category" id="category" required>
+                            <option value="Fiction">Fiction</option>
+                            <option value="Non-Fiction">Non-Fiction</option>
+                            <option value="Children">Children</option>
+                            <option value="Educational">Educational</option>
+                            <option value="Others">Others</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea name="description" id="description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="available_quantity">Available Quantity</label>
+                        <input type="number" name="available_quantity" id="available_quantity" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="isbn">ISBN (13 digits)</label>
+                        <input type="text" name="isbn" id="isbn" pattern="[0-9]{13}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="book_image">Book Image</label>
+                        <input type="file" name="book_image" id="book_image" accept="image/*">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit">Add Book</button>
+                    </div>
+                </form>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Category</th>
+                        <th>Available Quantity</th>
+                        <th>Image</th>
+                        <th>ISBN</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% books.forEach(book => { %>
+                        <tr>
+                            <td><%= book.id %></td>
+                            <td><%= book.title %></td>
+                            <td><%= book.author %></td>
+                            <td><%= book.category %></td>
+                            <td><%= book.available_quantity %></td>
+                            <td><img src="<%= book.image_url %>" alt="<%= book.title %>" style="width: 50px;"></td>
+                            <td><%= book.isbn %></td>
+                            <td class="actions">
+                                <form action="/admin/books/update/<%= book.id %>" method="POST" style="display:inline;" enctype="multipart/form-data">
+                                    <input type="hidden" name="current_image_url" value="<%= book.image_url %>">
+                                    <button type="button" class="edit-btn" onclick="toggleForm('edit-book-form-<%= book.id %>')">Edit</button>
+                                </form>
+                                <form action="/admin/books/delete/<%= book.id %>" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this book?');">
+                                    <button type="submit" class="delete-btn">Delete</button>
+                                </form>
+                                <div id="edit-book-form-<%= book.id %>" class="edit-form">
+                                    <form action="/admin/books/update/<%= book.id %>" method="POST" enctype="multipart/form-data">
+                                        <input type="hidden" name="current_image_url" value="<%= book.image_url %>">
+                                        <div class="form-group">
+                                            <label for="title-<%= book.id %>">Title</label>
+                                            <input type="text" name="title" id="title-<%= book.id %>" value="<%= book.title %>" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="author-<%= book.id %>">Author</label>
+                                            <input type="text" name="author" id="author-<%= book.id %>" value="<%= book.author %>" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="category-<%= book.id %>">Category</label>
+                                            <select name="category" id="category-<%= book.id %>" required>
+                                                <option value="Fiction" <%= book.category === 'Fiction' ? 'selected' : '' %>>Fiction</option>
+                                                <option value="Non-Fiction" <%= book.category === 'Non-Fiction' ? 'selected' : '' %>>Non-Fiction</option>
+                                                <option value="Children" <%= book.category === 'Children' ? 'selected' : '' %>>Children</option>
+                                                <option value="Educational" <%= book.category === 'Educational' ? 'selected' : '' %>>Educational</option>
+                                                <option value="Others" <%= book.category === 'Others' ? 'selected' : '' %>>Others</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="description-<%= book.id %>">Description</label>
+                                            <textarea name="description" id="description-<%= book.id %>"><%= book.description %></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="available_quantity-<%= book.id %>">Available Quantity</label>
+                                            <input type="number" name="available_quantity" id="available_quantity-<%= book.id %>" value="<%= book.available_quantity %>" min="0" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="isbn-<%= book.id %>">ISBN (13 digits)</label>
+                                            <input type="text" name="isbn" id="isbn-<%= book.id %>" value="<%= book.isbn %>" pattern="[0-9]{13}" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="book_image-<%= book.id %>">Book Image</label>
+                                            <input type="file" name="book_image" id="book_image-<%= book.id %>" accept="image/*">
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit">Update Book</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Manage Users Tab -->
+        <div id="users" class="tab-content">
+            <h2>Manage Users</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Full Name</th>
+                        <th>Email</th>
+                        <th>Mobile</th>
+                        <th>Role</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% users.forEach(user => { %>
+                        <tr>
+                            <td><%= user.id %></td>
+                            <td><%= user.full_name %></td>
+                            <td><%= user.email %></td>
+                            <td><%= user.mobile %></td>
+                            <td><%= user.role || 'user' %></td>
+                            <td class="actions">
+                                <form action="/admin/users/delete/<%= user.id %>" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                                    <button type="submit" class="delete-btn">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Manage Requests Tab -->
+        <div id="requests" class="tab-content">
+            <h2>Manage Requests</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>User</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Category</th>
+                        <th>Quantity</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% requests.forEach(request => { %>
+                        <tr>
+                            <td><%= request.id %></td>
+                            <td><%= request.user_name %></td>
+                            <td><%= request.title %></td>
+                            <td><%= request.author %></td>
+                            <td><%= request.category %></td>
+                            <td><%= request.quantity %></td>
+                            <td><%= request.status %></td>
+                            <td class="actions">
+                                <form action="/admin/requests/update/<%= request.id %>" method="POST" style="display:inline;">
+                                    <select name="status" onchange="this.form.submit()">
+                                        <option value="Pending" <%= request.status === 'Pending' ? 'selected' : '' %>>Pending</option>
+                                        <option value="Approved" <%= request.status === 'Approved' ? 'selected' : '' %>>Approved</option>
+                                        <option value="Rejected" <%= request.status === 'Rejected' ? 'selected' : '' %>>Rejected</option>
+                                        <option value="Fulfilled" <%= request.status === 'Fulfilled' ? 'selected' : '' %>>Fulfilled</option>
+                                    </select>
+                                </form>
+                                <form action="/admin/requests/delete/<%= request.id %>" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this request?');">
+                                    <button type="submit" class="delete-btn">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Manage Donations Tab -->
+        <div id="donations" class="tab-content">
+            <h2>Manage Donations</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>User</th>
+                        <th>Book Title</th>
+                        <th>Quantity</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% donations.forEach(donation => { %>
+                        <tr>
+                            <td><%= donation.id %></td>
+                            <td><%= donation.user_name %></td>
+                            <td><%= donation.book_title %></td>
+                            <td><%= donation.quantity %></td>
+                            <td class="actions">
+                                <form action="/admin/donations/delete/<%= donation.id %>" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this donation?');">
+                                    <button type="submit" class="delete-btn">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Manage Cart Tab -->
+        <div id="cart" class="tab-content">
+            <h2>Manage Cart</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>User</th>
+                        <th>Book Title</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% cartItems.forEach(item => { %>
+                        <tr>
+                            <td><%= item.id %></td>
+                            <td><%= item.user_name %></td>
+                            <td><%= item.book_title %></td>
+                            <td class="actions">
+                                <form action="/admin/cart/delete/<%= item.id %>" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this cart item?');">
+                                    <button type="submit" class="delete-btn">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function openTab(tabName) {
+            const tabs = document.getElementsByClassName('tab-button');
+            const tabContents = document.getElementsByClassName('tab-content');
+            for (let i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove('active');
+                tabContents[i].classList.remove('active');
+            }
+            document.getElementById(tabName).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        function toggleForm(formId) {
+            const form = document.getElementById(formId);
+            form.classList.toggle('active');
+        }
+
+        // Auto-open the summary tab on load
+        window.onload = function() {
+            openTab('summary');
+        };
+    </script>
+</body>
+</html>

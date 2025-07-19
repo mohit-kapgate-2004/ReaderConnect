@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart - Readers Connect</title>
+    <link rel="stylesheet" href="/Home_page.css">
+    <style>
+        .container { max-width: 800px; margin: 50px auto; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #333; margin-bottom: 20px; }
+        .cart-item { display: flex; gap: 20px; padding: 15px; border-bottom: 1px solid #ddd; }
+        .cart-item img { max-width: 100px; border-radius: 5px; }
+        .cart-item button { padding: 5px 10px; background: #dc3545; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        .cart-item button:hover { background: #c82333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Your Cart</h2>
+        <% if (cartItems.length === 0) { %>
+            <p>Your cart is empty.</p>
+        <% } else { %>
+            <% cartItems.forEach(item => { %>
+                <div class="cart-item">
+                    <img src="<%= item.image_url %>" alt="<%= item.title %>">
+                    <div>
+                        <h3><%= item.title %></h3>
+                        <p>Quantity: <%= item.quantity %></p>
+                        <form action="/cart/remove/<%= item.id %>" method="POST">
+                            <button type="submit">Remove</button>
+                        </form>
+                    </div>
+                </div>
+            <% }) %>
+        <% } %>
+        <p><a href="/home">Back to Home</a></p>
+    </div>
+</body>
+</html>

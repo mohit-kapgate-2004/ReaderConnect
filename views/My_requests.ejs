@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Requests - Readers Connect</title>
+    <link rel="stylesheet" href="/Home_page.css">
+    <style>
+        .container { max-width: 800px; margin: 50px auto; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #333; margin-bottom: 20px; }
+        .request { padding: 15px; border-bottom: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>My Requested Books</h2>
+        <% if (requests.length === 0) { %>
+            <p>You haven’t requested any books yet.</p>
+        <% } else { %>
+            <% requests.forEach(request => { %>
+                <div class="request">
+                    <p><strong>Book:</strong> <%= request.book_id ? request.title : 'Pending Assignment' %></p>
+                    <p><strong>Reason:</strong> <%= request.reason %></p>
+                    <p><strong>Status:</strong> <%= request.status %></p>
+                   
+                </div>
+            <% }) %>
+        <% } %>
+        <p><a href="/home">Back to Home</a></p>
+    </div>
+</body>
+</html>

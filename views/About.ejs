@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Readers Connect</title>
+    <link rel="stylesheet" href="/Home_page.css">
+    <style>
+        .container { max-width: 800px; margin: 50px auto; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #333; margin-bottom: 20px; }
+        p { line-height: 1.6; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>About Readers Connect</h2>
+        <p>Readers Connect is a community-driven platform dedicated to making literature accessible to everyone. Our mission is to connect book lovers, encourage donations, and fulfill reading requests worldwide.</p>
+        <p>Founded in 2025, we aim to bridge the gap between those with extra books and those in need, fostering a love for reading and learning.</p>
+        <p><a href="<%= user ? '/home' : '/' %>">Back to <%= user ? 'Home' : 'Landing' %></a></p>
+    </div>
+</body>
+</html>

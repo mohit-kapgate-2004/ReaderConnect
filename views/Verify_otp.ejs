@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP - Readers Connect</title>
+    <style>
+        body { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #f4f4f4; }
+        .container { width: 400px; padding: 20px; border: 1px solid #ccc; border-radius: 5px; text-align: center; background: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; }
+        button { width: 100%; padding: 10px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #218838; }
+        .error { color: red; margin-top: 10px; }
+        .otp-display { color: #333; margin: 10px 0; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Verify OTP</h2>
+        <p>Check your email (<%= email %>) for Firebase verification link. Captcha code after verifying email:</p>
+        <p class="otp-display">Mobile OTP: <%= mobileOTP %></p>
+        <form action="/verify-otp" method="POST">
+            <input type="text" name="mobileOTP" placeholder="Enter Mobile OTP (6 digits)" maxlength="6" required>
+            <button type="submit">Verify</button>
+        </form>
+        <% if (error) { %>
+            <p class="error"><%= error %></p>
+        <% } %>
+    </div>
+</body>
+</html>

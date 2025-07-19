@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Add Book</title>
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #1e3a5f;
+            margin-bottom: 20px;
+        }
+        .error {
+            color: #dc3545;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .form-group {
+            position: relative;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        .form-group textarea {
+            resize: vertical;
+        }
+        .form-group label {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #666;
+            pointer-events: none;
+            transition: all 0.2s;
+        }
+        .form-group input:focus + label,
+        .form-group input:not(:placeholder-shown) + label,
+        .form-group textarea:focus + label,
+        .form-group textarea:not(:placeholder-shown) + label,
+        .form-group select:focus + label,
+        .form-group select:not(:placeholder-shown) + label {
+            top: -10px;
+            left: 5px;
+            font-size: 0.8rem;
+            color: #1e3a5f;
+            background: white;
+            padding: 0 5px;
+        }
+        button {
+            padding: 10px;
+            background: #1e3a5f;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        button:hover {
+            background: #2a4b7c;
+        }
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .back-link a {
+            color: #1e3a5f;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Add New Book</h2>
+        <% if (error) { %>
+            <p class="error"><%= error %></p>
+        <% } %>
+        <form action="/admin/books/add" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <input type="text" name="title" id="title" placeholder=" " required>
+                <label for="title">Book Title</label>
+            </div>
+            <div class="form-group">
+                <input type="text" name="author" id="author" placeholder=" " required>
+                <label for="author">Author</label>
+            </div>
+            <div class="form-group">
+                <select name="category" id="category" required>
+                    <option value="" disabled selected hidden></option>
+                    <option value="Fiction">Fiction</option>
+                    <option value="Non-Fiction">Non-Fiction</option>
+                    <option value="Children">Children</option>
+                    <option value="Educational">Educational</option>
+                    <option value="Others">Others</option>
+                </select>
+                <label for="category">Category</label>
+            </div>
+            <div class="form-group">
+                <textarea name="description" id="description" placeholder=" "></textarea>
+                <label for="description">Book Description (Optional)</label>
+            </div>
+            <div class="form-group">
+                <input type="number" name="available_quantity" id="available_quantity" placeholder=" " min="0" required>
+                <label for="available_quantity">Available Quantity</label>
+            </div>
+            <div class="form-group">
+                <input type="text" name="isbn" id="isbn" placeholder=" " pattern="^[0-9]{13}$" required>
+                <label for="isbn">ISBN (13 digits)</label>
+            </div>
+            <div class="form-group">
+                <input type="file" name="book_image" id="book_image" accept="image/*">
+                <label for="book_image">Book Image (Optional)</label>
+            </div>
+            <button type="submit">Add Book</button>
+        </form>
+        <p class="back-link"><a href="/admin/books">Back to Books</a></p>
+    </div>
+</body>
+</html>

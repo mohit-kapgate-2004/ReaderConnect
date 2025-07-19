@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request - <%= book.title %> - Readers Connect</title>
+    <link rel="stylesheet" href="/Home_page.css">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f5f5f5; }
+        .container { max-width: 600px; margin: 50px auto; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #333; margin-bottom: 20px; }
+        form { display: flex; flex-direction: column; gap: 15px; }
+        input, textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+        textarea { height: 100px; resize: vertical; }
+        button { padding: 10px; background: #dc3545; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #c82333; }
+        .error { color: red; text-align: center; margin-top: 10px; }
+        .book-info { margin-bottom: 20px; text-align: center; }
+        .book-info img { max-width: 150px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Request a Book</h2>
+        <div class="book-info">
+            <img src="<%= book.image_url %>" alt="<%= book.title %>">
+            <p><strong><%= book.title %></strong> by <%= book.author %></p>
+            <p>Available: <%= book.available_quantity %></p>
+        </div>
+        <form action="/request/<%= book.id %>" method="POST">
+            <input type="number" name="quantity" placeholder="Quantity" min="1" max="1" value="1" readonly>
+            <textarea name="reason" placeholder="Why do you need this book?" required></textarea>
+            <input type="text" name="full_address" placeholder="Full Address" required>
+            <input type="text" name="pin_code" placeholder="Pin Code" required>
+            <input type="text" name="state" placeholder="State" required>
+            <input type="text" name="country" placeholder="Country" required>
+            <button type="submit">Request</button>
+        </form>
+        <p><a href="/templet/<%= book.id %>">Back to Book Details</a></p>
+        <% if (error) { %>
+            <p class="error"><%= error %></p>
+        <% } %>
+    </div>
+</body>
+</html>

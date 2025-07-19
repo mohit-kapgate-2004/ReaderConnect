@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate a New Book - Readers Connect</title>
+    <link rel="stylesheet" href="/Home_page.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%); /* Gradient background */
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            max-width: 700px; /* Increased width to accommodate more fields */
+            margin: 30px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        h2 {
+            text-align: center;
+            color: #1e3a5f; /* Dark blue for heading */
+            margin-bottom: 30px;
+            font-size: 2rem;
+            font-weight: 500;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .form-group {
+            position: relative;
+            width: 100%;
+        }
+        .form-group label {
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            font-size: 1rem;
+            color: #666;
+            transition: all 0.2s ease;
+            pointer-events: none;
+        }
+        .form-group input:focus + label,
+        .form-group input:not(:placeholder-shown) + label,
+        .form-group textarea:focus + label,
+        .form-group textarea:not(:placeholder-shown) + label,
+        .form-group select:focus + label,
+        .form-group select:not(:placeholder-shown) + label {
+            top: -10px;
+            left: 10px;
+            font-size: 0.8rem;
+            color: #1e3a5f;
+            background: white;
+            padding: 0 5px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            color: #333;
+            box-sizing: border-box;
+            transition: border-color 0.2s ease;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #1e3a5f;
+            box-shadow: 0 0 5px rgba(30, 58, 95, 0.2);
+        }
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        .phone-group {
+            display: flex;
+            gap: 10px;
+        }
+        .phone-group select {
+            width: 120px; /* Fixed width for country code dropdown */
+        }
+        .phone-group input {
+            flex: 1;
+        }
+        .address-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .address-group .form-group {
+            flex: 1;
+            min-width: 200px; /* Ensure fields don’t get too narrow */
+        }
+        button {
+            padding: 12px;
+            background: #1e3a5f; /* Dark blue button */
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: background 0.3s ease, transform 0.1s ease;
+        }
+        button:hover {
+            background: #87b5e0; /* Lighter blue on hover */
+            transform: translateY(-2px);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .back-link a {
+            color: #1e3a5f;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+        .error {
+            color: #dc3545;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Donate a New Book</h2>
+
+        <form action="/donate" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="request_id" value="<%= request ? request.id : '' %>">
+            <div class="form-group">
+                <input type="text" name="title" id="title" placeholder=" " value="<%= request ? request.title : '' %>" required>
+                <label for="title">Book Title</label>
+            </div>
+            <div class="form-group">
+                <input type="text" name="author" id="author" placeholder=" " value="<%= request ? request.author : '' %>" required>
+                <label for="author">Author</label>
+            </div>
+            <div class="form-group">
+                <select name="category" id="category" required>
+                    <option value="" disabled <%= !request ? 'selected' : '' %> hidden></option>
+                    <option value="Fiction" <%= request && request.category === 'Fiction' ? 'selected' : '' %>>Fiction</option>
+                    <option value="Non-Fiction" <%= request && request.category === 'Non-Fiction' ? 'selected' : '' %>>Non-Fiction</option>
+                    <option value="Children" <%= request && request.category === 'Children' ? 'selected' : '' %>>Children</option>
+                    <option value="Educational" <%= request && request.category === 'Educational' ? 'selected' : '' %>>Educational</option>
+                    <option value="Others" <%= request && request.category === 'Others' ? 'selected' : '' %>>Others</option>
+                </select>
+                <label for="category">Category</label>
+            </div>
+            <div class="form-group">
+                <textarea name="description" id="description" placeholder=" "><%= request ? request.description : '' %></textarea>
+                <label for="description">Book Description (Optional)</label>
+            </div>
+            <div class="form-group">
+                <input type="number" name="quantity" id="quantity" placeholder=" " min="1" value="<%= request ? request.quantity : '1' %>" required>
+                <label for="quantity">Quantity</label>
+            </div>
+            <div class="form-group">
+                <input type="text" name="isbn" id="isbn" placeholder=" " pattern="[0-9]{13}" required>
+                <label for="isbn">ISBN (13 digits)</label>
+            </div>
+            <div class="form-group">
+                <input type="file" name="book_image" id="book_image" accept="image/*">
+                <label for="book_image">Book Image (Optional)</label>
+            </div>
+            <div class="address-group">
+                <div class="form-group">
+                    <input type="text" name="house_no" id="house_no" placeholder=" " required>
+                    <label for="house_no">House No./Apartment</label>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="street" id="street" placeholder=" " required>
+                    <label for="street">Street/Area</label>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="city" id="city" placeholder=" " required>
+                    <label for="city">City</label>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="state" id="state" placeholder=" " required>
+                    <label for="state">State</label>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="pincode" id="pincode" placeholder=" " pattern="[0-9]{6}" required>
+                    <label for="pincode">Pincode (6 digits)</label>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="landmark" id="landmark" placeholder=" ">
+                    <label for="landmark">Landmark (Optional)</label>
+                </div>
+            </div>
+            <div class="form-group phone-group">
+                <select name="country_code" id="country_code" required>
+                    <option value="+91" selected>🇮🇳 +91 (India)</option>
+                    <option value="+1">🇺🇸 +1 (USA)</option>
+                    <option value="+44">🇬🇧 +44 (UK)</option>
+                    <option value="+61">🇦🇺 +61 (Australia)</option>
+                    <option value="+81">🇯🇵 +81 (Japan)</option>
+                </select>
+                <input type="tel" name="mobile" id="mobile" placeholder=" " pattern="[0-9]{10}" required>
+                <label for="mobile">Mobile Number (10 digits)</label>
+            </div>
+            <button type="submit">Donate</button>
+        </form>
+        <p class="back-link"><a href="/home">Back to Home</a></p>
+        <% if (error) { %>
+            <p class="error"><%= error %></p>
+        <% } %>
+    </div>
+
+    <script>
+        // Ensure labels stay up if the field has a value on page load
+        document.querySelectorAll('.form-group input, .form-group textarea, .form-group select').forEach(input => {
+            if (input.value) {
+                input.nextElementSibling.classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>
